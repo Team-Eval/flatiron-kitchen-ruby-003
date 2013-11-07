@@ -28,7 +28,8 @@ end
 
 describe "ingredients" do
   before do
-    Ingredient.create(name: "Salmon Gams")
+    salmon = Ingredient.create(name: "Salmon Gams")
+    @pie = Recipe.create(name: "Joshie Poshie Pie", ingredient_ids: [salmon.id])
     visit edit_ingredient_path(Ingredient.first)
     fill_in 'ingredient_count', with: '7'
     click_button('Update Ingredient')
@@ -39,11 +40,13 @@ describe "ingredients" do
   end
   
   it "adding more of the ingredient should increase the count" do
+    visit ingredients_path
+    click_link('$')
     expect(page).to have_content("8")
   end
   # should have a count
 
   it "should lower the count when used in a recipe" do
-    pending
+    visit recipe_path(@pie)
   end
 end

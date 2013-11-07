@@ -5,8 +5,8 @@
   <%= @ingredient.name %> | <%= @ingredient.count %>
 </p>
 <%= form_for @ingredient do |f| %>
-  <%= f.submit "purchase additional stock" %>
-  <%= f.submit "purchase additional stock" %>
+  <%= f.hidden_field :increment_count, :value => true %>
+  <%= f.submit "Purchase More!" %>
 <% end %>
 
 <%= link_to 'Edit', edit_ingredient_path(@ingredient) %> |

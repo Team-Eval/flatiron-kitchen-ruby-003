@@ -40,6 +40,11 @@ class IngredientsController < ApplicationController
   # PATCH/PUT /ingredients/1
   # PATCH/PUT /ingredients/1.json
   def update
+    #raise params
+    if params[:ingredient][:increment_count]
+      @ingredient.increment_count
+    end
+
     respond_to do |format|
       if @ingredient.update(ingredient_params)
         format.html { redirect_to @ingredient, notice: 'Ingredient was successfully updated.' }
