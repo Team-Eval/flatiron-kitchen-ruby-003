@@ -24,3 +24,22 @@ describe "creating ingredients" do
     end
   end
 end
+
+
+describe "ingredients" do
+  before do
+    visit 
+  end
+  it "should have a count" do
+    pending
+  end
+  
+  it "adding more of the ingredient should increase the count" do
+    pending
+  end
+  # should have a count
+
+  it "should lower the count when used in a recipe" do
+    pending
+  end
+end
