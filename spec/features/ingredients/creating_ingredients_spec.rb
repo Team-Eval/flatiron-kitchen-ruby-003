@@ -28,14 +28,18 @@ end
 
 describe "ingredients" do
   before do
-    visit 
+    Ingredient.create(name: "Salmon Gams")
+    visit edit_ingredient_path(Ingredient.first)
+    fill_in 'ingredient_count', with: '7'
+    click_button('Update Ingredient')
   end
+
   it "should have a count" do
-    pending
+    expect(page).to have_content("7")
   end
   
   it "adding more of the ingredient should increase the count" do
-    pending
+    expect(page).to have_content("8")
   end
   # should have a count
 

@@ -2,8 +2,12 @@
 
 <p>
   <strong>Name:</strong>
-  <%= @ingredient.name %>
+  <%= @ingredient.name %> | <%= @ingredient.count %>
 </p>
+<%= form_for @ingredient do |f| %>
+  <%= f.submit "purchase additional stock" %>
+  <%= f.submit "purchase additional stock" %>
+<% end %>
 
 <%= link_to 'Edit', edit_ingredient_path(@ingredient) %> |
 <%= link_to 'Back', ingredients_path %>
