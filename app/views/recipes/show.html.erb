@@ -6,9 +6,9 @@
 </p>
 
 <p>
-  <strong>Ingredients:</strong>
+  <strong>Ingredients:</strong><br /><br />
   <% @recipe.ingredients.each do |i| %>
-    <%= link_to i.name, i %>
+    <%= link_to i.name, i %> | <%= i.count %> in stock<br />
   <% end %>
 </p>
 

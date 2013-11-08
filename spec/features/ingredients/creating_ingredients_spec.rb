@@ -29,7 +29,8 @@ end
 describe "ingredients" do
   before do
     @salmon = Ingredient.create(:name => "Salmon Gams", :count => 0)
-    @pie = Recipe.create(name: "Joshie Poshie Pie", ingredient_ids: [@salmon.id])
+    @pie = @salmon.recipes.build(name: "Joshie Poshie Pie", ingredient_ids: [@salmon.id])
+    @salmon.save
   end
 
   it "should have a count" do
@@ -47,11 +48,11 @@ describe "ingredients" do
 
   context "there are enough ingredients for the recipe" do
     it "displays an updated count when the recipe is cooked" do
-      @salmon.update(:count => 7)
+      Ingredient.find(@salmon).update(:count => 7)
       visit recipe_path(@pie)
       click_link("Make recipe!")
-      expect(@salmon.count).to eq(6)
-      expect(page).to have_content("Success")
+      expect(Ingredient.find(@salmon).count).to eq(6)
+      expect(page).to have_content("Recipe was successfully cooked!")
     end
   end
 end

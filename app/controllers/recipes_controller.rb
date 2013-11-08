@@ -22,8 +22,15 @@ class RecipesController < ApplicationController
   end
 
   def cook
-    @recipe.cook!
-    redirect_to @recipe
+    respond_to do |format|
+      if @recipe.cook!
+        format.html { redirect_to @recipe, notice: 'Recipe was successfully cooked!' }
+        format.json { render action: 'show', status: :created, location: @recipe }
+      else
+        format.html { redirect_to @recipe, notice: 'Not enough ingredients in-stock - buy more!' }
+        format.json { render json: @recipe.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # POST /recipes
