@@ -1,5 +1,5 @@
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: [:show, :edit, :update, :destroy]
+  before_action :set_recipe, only: [:show, :edit, :update, :destroy, :cook]
 
   # GET /recipes
   # GET /recipes.json
@@ -19,6 +19,11 @@ class RecipesController < ApplicationController
 
   # GET /recipes/1/edit
   def edit
+  end
+
+  def cook
+    @recipe.cook!
+    redirect_to @recipe
   end
 
   # POST /recipes

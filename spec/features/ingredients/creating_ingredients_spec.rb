@@ -28,25 +28,30 @@ end
 
 describe "ingredients" do
   before do
-    salmon = Ingredient.create(name: "Salmon Gams")
-    @pie = Recipe.create(name: "Joshie Poshie Pie", ingredient_ids: [salmon.id])
-    visit edit_ingredient_path(Ingredient.first)
-    fill_in 'ingredient_count', with: '7'
-    click_button('Update Ingredient')
+    @salmon = Ingredient.create(:name => "Salmon Gams", :count => 0)
+    @pie = Recipe.create(name: "Joshie Poshie Pie", ingredient_ids: [@salmon.id])
   end
 
   it "should have a count" do
+    visit edit_ingredient_path(Ingredient.first)
+    fill_in 'ingredient_count', with: '7'
+    click_button('Update Ingredient')
     expect(page).to have_content("7")
   end
   
   it "adding more of the ingredient should increase the count" do
     visit ingredients_path
     click_link('$')
-    expect(page).to have_content("8")
+    expect(page).to have_content("1")
   end
-  # should have a count
 
-  it "should lower the count when used in a recipe" do
-    visit recipe_path(@pie)
+  context "there are enough ingredients for the recipe" do
+    it "displays an updated count when the recipe is cooked" do
+      @salmon.update(:count => 7)
+      visit recipe_path(@pie)
+      click_link("Make recipe!")
+      expect(@salmon.count).to eq(6)
+      expect(page).to have_content("Success")
+    end
   end
 end
