@@ -2,6 +2,8 @@ FlatironKitchen::Application.routes.draw do
   resources :recipes
   get '/recipes/:id/cook', to: 'recipes#cook', :as => 'cook_recipe'
   
+  root :to => redirect("/recipes")
+  
   resources :ingredients
 
   # The priority is based upon order of creation: first created -> highest priority.

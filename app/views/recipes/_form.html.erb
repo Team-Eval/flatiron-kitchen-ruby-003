@@ -18,11 +18,44 @@
   </div>
 
   <div class="field">
-    <%= f.label :name %><br>
+    <%= f.label :ingredients %><br>
     <%= f.collection_check_boxes(:ingredient_ids, Ingredient.all, :id, :name) %>
+  </div>
+
+  <div class="actions">
+    <%= link_to_function "Need a new ingredient?", "$( '#hidden_new_ingredient' ).toggle();" %>
   </div>
 
   <div class="actions">
     <%= f.submit %>
   </div>
+
 <% end %>
+
+  <div id="hidden_new_ingredient">
+    <%= form_for(@ingredient) do |f| %>
+      <% if @ingredient.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@ingredient.errors.count, "error") %> prohibited this ingredient from being saved:</h2>
+          <ul>
+          <% @ingredient.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="field">
+        <%= f.label :name %><br>
+        <%= f.text_field :name %>
+      </div>
+      <div class="field">
+        <%= f.label :count %><br>
+        <%= f.text_field :count %>
+      </div>
+      <div class="actions">
+        <%= f.submit %>
+      </div>
+    <% end %>
+  </div>
+
